@@ -58,7 +58,7 @@ const middleware = (protoFiles, grpcLocation, credentials = requiredGrpc.credent
                   }
 
                   try {
-                    getPkg(clients, pkg, false)[svc][lowerFirstChar(m.name)](params, meta, (err, ans) => {
+                    getPkg(clients, pkg, false)[svc][lowerFirstChar(m.name)](params/*, meta*/, (err, ans) => {
                       // TODO: PRIORITY:MEDIUM - improve error-handling
                       // TODO: PRIORITY:HIGH - double-check JSON mapping is identical to grpc-gateway
                       if (err) {
@@ -83,14 +83,14 @@ const middleware = (protoFiles, grpcLocation, credentials = requiredGrpc.credent
 }
 
 const getPkg = (client, pkg, create = false) => {
-  if (!((pkg || '').indexOf('.') != -1) && client[pkg] !== undefined) { 
-    return client[pkg] 
+  if (!((pkg || '').indexOf('.') != -1) && client[pkg] !== undefined) {
+    return client[pkg]
   }
 
-  if (((pkg || '').indexOf('.') != -1) && client[pkg] !== undefined) { 
-    return client[pkg] 
+  if (((pkg || '').indexOf('.') != -1) && client[pkg] !== undefined) {
+    return client[pkg]
   }
-  
+
   const ls = pkg.split('.')
   let obj = client
   ls.forEach(function (name) {
